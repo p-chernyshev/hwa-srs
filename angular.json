@@ -77,6 +77,19 @@
               ],
               "outputHashing": "all"
             },
+            "cordova": {
+              "index": {
+                "input": "src/index.cordova.html",
+                "output": "index.html"
+              },
+              "outputPath": "www",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.cordova.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
