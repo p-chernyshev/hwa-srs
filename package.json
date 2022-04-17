@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "ng": "ng",
+    "api": "dotnet run -p HwaSrsApi",
     "start": "ng serve",
     "build": "ng build",
     "cordova": "ng build --configuration cordova",
