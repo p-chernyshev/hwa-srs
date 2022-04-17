@@ -16,5 +16,11 @@ namespace HwaSrsApi.Db
         public DbSet<FieldData> FieldDatas { get; set; }
         public DbSet<CardProgress> CardProgresses { get; set; }
         public DbSet<CardReview> Reviews { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FieldData>()
+                .HasKey(data => new { data.CardId, data.FieldId });
+        }
     }
 }
