@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HwaSrsApi.Models
@@ -10,5 +11,7 @@ namespace HwaSrsApi.Models
         public string Name { get; set; }
         [Required]
         public string Description { get; set; }
+
+        public virtual List<Card> Cards { get; set; } = new List<Card>();
     }
 }
