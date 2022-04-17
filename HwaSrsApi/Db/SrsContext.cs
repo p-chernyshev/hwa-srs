@@ -21,6 +21,19 @@ namespace HwaSrsApi.Db
         {
             modelBuilder.Entity<FieldData>()
                 .HasKey(data => new { data.CardId, data.FieldId });
+
+            modelBuilder.Entity<FieldData>()
+                .HasOne(data => data.Card)
+                .WithMany(card => card.Fields)
+                .HasForeignKey(data => data.CardId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<FieldData>()
+                .HasOne(data => data.Field)
+                .WithMany()
+                .HasForeignKey(data => data.FieldId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
         }
     }
 }

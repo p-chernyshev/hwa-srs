@@ -63,7 +63,7 @@ namespace HwaSrsApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CardTypeId = table.Column<int>(nullable: true),
+                    CardTypeId = table.Column<int>(nullable: false),
                     CourseId = table.Column<int>(nullable: false),
                     ActivationCondition = table.Column<string>(nullable: true),
                     Tags = table.Column<string>(nullable: true)
@@ -76,7 +76,7 @@ namespace HwaSrsApi.Migrations
                         column: x => x.CardTypeId,
                         principalTable: "CardTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Cards_Courses_CourseId",
                         column: x => x.CourseId,
@@ -127,7 +127,7 @@ namespace HwaSrsApi.Migrations
                         column: x => x.FieldId,
                         principalTable: "Fields",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

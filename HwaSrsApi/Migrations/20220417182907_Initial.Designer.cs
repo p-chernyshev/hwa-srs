@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HwaSrsApi.Migrations
 {
     [DbContext(typeof(SrsContext))]
-    [Migration("20220417181700_Initial")]
+    [Migration("20220417182907_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace HwaSrsApi.Migrations
                     b.Property<string>("ActivationCondition")
                         .HasColumnType("text");
 
-                    b.Property<int?>("CardTypeId")
+                    b.Property<int>("CardTypeId")
                         .HasColumnType("integer");
 
                     b.Property<int>("CourseId")
@@ -180,7 +180,9 @@ namespace HwaSrsApi.Migrations
                 {
                     b.HasOne("HwaSrsApi.Models.CardType", "CardType")
                         .WithMany("Cards")
-                        .HasForeignKey("CardTypeId");
+                        .HasForeignKey("CardTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HwaSrsApi.Models.Course", "Course")
                         .WithMany("Cards")
@@ -225,7 +227,7 @@ namespace HwaSrsApi.Migrations
                     b.HasOne("HwaSrsApi.Models.Field", "Field")
                         .WithMany()
                         .HasForeignKey("FieldId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
