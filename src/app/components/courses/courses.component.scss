@@ -1,0 +1,25 @@
+.courses {
+    width: 90%;
+    max-width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.courses__list-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.courses__list {
+    width: 100%;
+    min-height: 500px;
+}
+
+:host .courses__list-item ::ng-deep .mat-list-text,
+:host .courses__list-item ::ng-deep .mat-line {
+    overflow: visible;
+}
