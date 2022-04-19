@@ -300,7 +300,7 @@
       "rules": {
         "@angular-eslint/template/banana-in-box": "warn",
         "@angular-eslint/template/eqeqeq": "warn",
-        "@angular-eslint/template/no-negated-async": "warn"
+        "@angular-eslint/template/no-negated-async": "off"
       }
     }
   ]
