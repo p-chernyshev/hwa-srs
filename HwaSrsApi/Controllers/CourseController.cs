@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,15 +21,15 @@ namespace HwaSrsApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
+        public async Task<ActionResult<IEnumerable<CourseListViewModel>>> GetCourses()
         {
-            return await Context.Courses.ToListAsync();
+            return await GetCourseListQuery().ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<ActionResult<CourseListViewModel>> GetCourse(int id)
         {
-            var course = await Context.Courses.FindAsync(id);
+            var course = await GetCourseListQuery().FirstAsync(course => course.Id == id);
 
             if (course == null)
             {
@@ -89,6 +90,18 @@ namespace HwaSrsApi.Controllers
             await Context.SaveChangesAsync();
 
             return course;
+        }
+
+        private IQueryable<CourseListViewModel> GetCourseListQuery()
+        {
+            return Context.Courses
+                .Select(course => new CourseListViewModel
+                {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Description = course.Description,
+                    Due = Context.CardProgresses.Count(progress => progress.DueDate >= DateTime.Today),
+                });
         }
 
         private bool CourseExists(int id)
