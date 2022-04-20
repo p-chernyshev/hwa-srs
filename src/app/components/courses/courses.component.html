@@ -14,5 +14,12 @@
                 <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
             </mat-list-item>
         </mat-nav-list>
+        <button
+            mat-fab
+            class="courses__add-course"
+            (click)="addCourse()"
+        >
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
 </div>

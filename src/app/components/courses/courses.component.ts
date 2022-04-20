@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ReplaySubject, BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
 import { Course } from '../../types/course';
+import { CourseEditDialogComponent } from '../course-edit-dialog/course-edit-dialog.component';
 
 @Component({
     selector: 'srs-courses',
@@ -17,6 +19,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
     constructor(
         private coursesService: CoursesService,
+        public dialog: MatDialog,
     ) {
     }
 
@@ -34,5 +37,15 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.destroy$.next();
+    }
+
+    public addCourse(): void {
+        this.dialog
+            .open(CourseEditDialogComponent, {
+                width: '300px',
+                maxWidth: '100%',
+            })
+            .afterClosed()
+            .subscribe(console.log);
     }
 }

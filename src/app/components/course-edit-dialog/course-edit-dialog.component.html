@@ -1,0 +1,31 @@
+<div class="course-edit-dialog">
+    <h1 mat-dialog-title>Новый учебный курс</h1>
+    <form [formGroup]="formGroup" (ngSubmit)="save()">
+        <div mat-dialog-content>
+            <mat-form-field appearance="fill" class="course-edit-dialog__form-field">
+                <mat-label>Название</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="course-edit-dialog__form-field">
+                <mat-label>Описание</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions class="course-edit-dialog__actions">
+            <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+            >
+                Сохранить
+            </button>
+            <button
+                type="button"
+                mat-raised-button
+                [mat-dialog-close]=""
+            >
+                Отмена
+            </button>
+        </div>
+    </form>
+</div>
