@@ -7,7 +7,11 @@
                 class="courses__list-item"
             >
                 <a matLine routerLink="/courses/{{course.id}}">
-                    <span [matBadge]="course.due" matBadgeOverlap="false">
+                    <span
+                        [matBadge]="course.due"
+                        [matBadgeHidden]="!course.due"
+                        matBadgeOverlap="false"
+                    >
                         {{ course.name }}
                     </span>
                 </a>
