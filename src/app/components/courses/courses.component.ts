@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { MatDialog } from '@angular/material/dialog';
 import { ReplaySubject, BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
-import { Course } from '../../types/course';
+import { Course, NewCourse } from '../../types/course';
 import { CourseEditDialogComponent } from '../course-edit-dialog/course-edit-dialog.component';
 
 @Component({
@@ -14,6 +14,7 @@ import { CourseEditDialogComponent } from '../course-edit-dialog/course-edit-dia
 export class CoursesComponent implements OnInit, OnDestroy {
     public courses$ = new ReplaySubject<Course[]>(1);
     public loading$ = new BehaviorSubject<boolean>(false);
+    public saving$ = new BehaviorSubject<boolean>(false);
 
     private destroy$ = new Subject<void>();
 
@@ -24,6 +25,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
+        this.getCourses();
+    }
+
+    private getCourses(): void {
         this.loading$.next(true);
         this.coursesService.getCourses()
             .pipe(
@@ -40,12 +45,20 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
 
     public addCourse(): void {
-        this.dialog
-            .open(CourseEditDialogComponent, {
-                width: '300px',
-                maxWidth: '100%',
-            })
+        this.dialog.open<CourseEditDialogComponent, void, NewCourse>(CourseEditDialogComponent, {
+            width: '300px',
+            maxWidth: '100%',
+        })
             .afterClosed()
-            .subscribe(console.log);
+            .subscribe(newCourse => {
+                if (!newCourse) return;
+                this.saving$.next(true);
+                this.coursesService.saveNewCourse(newCourse)
+                    .pipe(
+                        takeUntil(this.destroy$),
+                        finalize(() => this.saving$.next(false)),
+                    )
+                    .subscribe(_ => this.getCourses());
+            });
     }
 }

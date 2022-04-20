@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { NewCourse } from '../../types/course';
 
 @Component({
     selector: 'srs-course-edit-dialog',
@@ -15,7 +16,7 @@ export class CourseEditDialogComponent implements OnInit {
     });
 
     constructor(
-        private dialogRef: MatDialogRef<CourseEditDialogComponent>,
+        private dialogRef: MatDialogRef<CourseEditDialogComponent, NewCourse>,
     ) {
     }
 
