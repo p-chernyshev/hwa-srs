@@ -1,19 +1,34 @@
 .courses {
-    width: 90%;
-    max-width: 1000px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.courses__header {
+    justify-content: center;
+}
+
+.courses__content {
+    width: 100%;
     height: 100%;
     margin: 0 auto;
     padding: 16px;
+    overflow: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .courses__list-container {
     position: relative;
-    width: 100%;
     height: 600px;
     max-height: 100%;
+}
+
+.courses__title,
+.courses__list-container {
+    width: 100%;
+    max-width: 1000px;
 }
 
 .courses__list {

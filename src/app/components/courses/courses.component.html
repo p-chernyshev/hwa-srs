@@ -1,47 +1,52 @@
 <div class="courses">
-    <mat-spinner *ngIf="loading$ | async"></mat-spinner>
-    <div *ngIf="!(loading$ | async) && (courses$ | async) as courses"  class="courses__list-container">
-        <mat-nav-list class="courses__list">
-            <mat-list-item
-                *ngFor="let course of courses; last as last"
-                class="courses__list-item"
-            >
-                <a matLine routerLink="/courses/{{course.id}}">
-                    <span
-                        [matBadge]="course.due"
-                        [matBadgeHidden]="!course.due"
-                        matBadgeOverlap="false"
-                    >
-                        {{ course.name }}
-                    </span>
-                </a>
-                <button
-                    mat-icon-button
-                    [matMenuTriggerFor]="courseMenu"
-                    [disabled]="saving$ | async"
+    <mat-toolbar class="courses__header" color="primary">
+        <div class="courses__title">Список учебных курсов</div>
+    </mat-toolbar>
+    <div class="courses__content">
+        <mat-spinner *ngIf="loading$ | async"></mat-spinner>
+        <div *ngIf="!(loading$ | async) && (courses$ | async) as courses"  class="courses__list-container">
+            <mat-nav-list class="courses__list">
+                <mat-list-item
+                    *ngFor="let course of courses; last as last"
+                    class="courses__list-item"
                 >
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #courseMenu="matMenu">
-                    <button mat-menu-item (click)="editCourse(course)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
+                    <a matLine routerLink="/courses/{{course.id}}">
+                        <span
+                            [matBadge]="course.due"
+                            [matBadgeHidden]="!course.due"
+                            matBadgeOverlap="false"
+                        >
+                            {{ course.name }}
+                        </span>
+                    </a>
+                    <button
+                        mat-icon-button
+                        [matMenuTriggerFor]="courseMenu"
+                        [disabled]="saving$ | async"
+                    >
+                        <mat-icon>more_vert</mat-icon>
                     </button>
-                    <button mat-menu-item (click)="deleteCourse(course)">
-                        <mat-icon>delete</mat-icon>
-                        <span>Удалить</span>
-                    </button>
-                </mat-menu>
-                <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
-            </mat-list-item>
-        </mat-nav-list>
-        <button
-            mat-fab
-            class="courses__add-course"
-            [disabled]="saving$ | async"
-            (click)="addCourse()"
-        >
-            <mat-icon>add</mat-icon>
-        </button>
+                    <mat-menu #courseMenu="matMenu">
+                        <button mat-menu-item (click)="editCourse(course)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Редактировать</span>
+                        </button>
+                        <button mat-menu-item (click)="deleteCourse(course)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Удалить</span>
+                        </button>
+                    </mat-menu>
+                    <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+                </mat-list-item>
+            </mat-nav-list>
+            <button
+                mat-fab
+                class="courses__add-course"
+                [disabled]="saving$ | async"
+                (click)="addCourse()"
+            >
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
     </div>
 </div>
