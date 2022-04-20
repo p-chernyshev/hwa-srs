@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { MatDialog } from '@angular/material/dialog';
 import { ReplaySubject, BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
-import { Course, NewCourse } from '../../types/course';
+import { Course, NewCourse, ListCourse, isNewCourse } from '../../types/course';
 import { CourseEditDialogComponent } from '../course-edit-dialog/course-edit-dialog.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { CourseEditDialogComponent } from '../course-edit-dialog/course-edit-dia
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesComponent implements OnInit, OnDestroy {
-    public courses$ = new ReplaySubject<Course[]>(1);
+    public courses$ = new ReplaySubject<ListCourse[]>(1);
     public loading$ = new BehaviorSubject<boolean>(false);
     public saving$ = new BehaviorSubject<boolean>(false);
 
@@ -45,20 +45,39 @@ export class CoursesComponent implements OnInit, OnDestroy {
     }
 
     public addCourse(): void {
-        this.dialog.open<CourseEditDialogComponent, void, NewCourse>(CourseEditDialogComponent, {
+        this.editCourse();
+    }
+
+    public editCourse(course?: Course): void {
+        this.dialog.open<CourseEditDialogComponent, Course | undefined, Course | NewCourse>(CourseEditDialogComponent, {
+            data: course,
             width: '300px',
             maxWidth: '100%',
         })
             .afterClosed()
-            .subscribe(newCourse => {
-                if (!newCourse) return;
+            .subscribe(savedCourse => {
+                if (!savedCourse) return;
+                const editCourseAction = isNewCourse(savedCourse)
+                    ? this.coursesService.saveNewCourse(savedCourse)
+                    : this.coursesService.saveEditCourse(savedCourse);
+
                 this.saving$.next(true);
-                this.coursesService.saveNewCourse(newCourse)
+                editCourseAction
                     .pipe(
                         takeUntil(this.destroy$),
                         finalize(() => this.saving$.next(false)),
                     )
                     .subscribe(_ => this.getCourses());
             });
+    }
+
+    public deleteCourse(course: Course): void {
+        this.saving$.next(true);
+        this.coursesService.deleteCourse(course)
+            .pipe(
+                takeUntil(this.destroy$),
+                finalize(() => this.saving$.next(false)),
+            )
+            .subscribe(_ => this.getCourses());
     }
 }

@@ -15,6 +15,23 @@
                         {{ course.name }}
                     </span>
                 </a>
+                <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="courseMenu"
+                    [disabled]="saving$ | async"
+                >
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #courseMenu="matMenu">
+                    <button mat-menu-item (click)="editCourse(course)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Редактировать</span>
+                    </button>
+                    <button mat-menu-item (click)="deleteCourse(course)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Удалить</span>
+                    </button>
+                </mat-menu>
                 <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
             </mat-list-item>
         </mat-nav-list>

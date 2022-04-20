@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { NewCourse } from '../../types/course';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NewCourse, Course } from '../../types/course';
 
 @Component({
     selector: 'srs-course-edit-dialog',
@@ -11,13 +11,22 @@ import { NewCourse } from '../../types/course';
 })
 export class CourseEditDialogComponent implements OnInit {
     public formGroup = new FormGroup({
+        id: new FormControl(null),
         name: new FormControl(null, Validators.required),
         description: new FormControl(null, Validators.required),
     });
 
     constructor(
         private dialogRef: MatDialogRef<CourseEditDialogComponent, NewCourse>,
+        @Inject(MAT_DIALOG_DATA) public course?: Course,
     ) {
+        if (course) {
+            this.formGroup.patchValue({
+                id: course.id,
+                name: course.name,
+                description: course.description,
+            });
+        }
     }
 
     public ngOnInit(): void {
