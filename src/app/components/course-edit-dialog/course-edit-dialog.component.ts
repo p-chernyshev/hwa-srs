@@ -17,7 +17,7 @@ export class CourseEditDialogComponent implements OnInit {
     });
 
     constructor(
-        private dialogRef: MatDialogRef<CourseEditDialogComponent, NewCourse>,
+        private dialogRef: MatDialogRef<CourseEditDialogComponent, Course | NewCourse>,
         @Inject(MAT_DIALOG_DATA) public course?: Course,
     ) {
         if (course) {
@@ -26,6 +26,8 @@ export class CourseEditDialogComponent implements OnInit {
                 name: course.name,
                 description: course.description,
             });
+        } else {
+            this.formGroup.controls['id'].disable();
         }
     }
 

@@ -209,7 +209,7 @@
           "warn",
           "multi-line"
         ],
-        "dot-notation": "warn",
+        "dot-notation": "off",
         "eol-last": "warn",
         "eqeqeq": "warn",
         "function-call-argument-newline": ["warn", "consistent"],
