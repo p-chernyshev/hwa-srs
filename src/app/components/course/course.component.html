@@ -23,9 +23,8 @@
                 <p class="course__count">
                     Карточек для повторения: {{course.due}}
                 </p>
-<!--                TODO Add new cards count-->
                 <p class="course__count">
-                    Новых карточек: 0
+                    Новых карточек: {{course.new}}
                 </p>
             </div>
             <div class="course__actions">
@@ -33,7 +32,7 @@
                     mat-raised-button
                     routerLink="review"
                     color="primary"
-                    [disabled]="!course.due"
+                    [disabled]="!(course.due || course.new)"
                 >
                     Начать повторение
                 </a>

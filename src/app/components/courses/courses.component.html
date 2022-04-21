@@ -14,8 +14,9 @@
                 >
                     <a matLine routerLink="/courses/{{course.id}}">
                         <span
-                            [matBadge]="course.due"
-                            [matBadgeHidden]="!course.due"
+                            [matBadge]="course.due + course.new"
+                            [matBadgeHidden]="!(course.due || course.new)"
+                            [matBadgeColor]="course.new && 'accent' || 'primary'"
                             matBadgeOverlap="false"
                         >
                             {{ course.name }}

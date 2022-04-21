@@ -8,6 +8,7 @@ type NewCourse = Omit<Course, 'id'>;
 
 interface ListCourse extends Course {
     due: number;
+    new: number;
 }
 
 function isNewCourse(course: Course | NewCourse): course is NewCourse {
