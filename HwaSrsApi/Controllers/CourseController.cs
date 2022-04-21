@@ -100,7 +100,9 @@ namespace HwaSrsApi.Controllers
                     Id = course.Id,
                     Name = course.Name,
                     Description = course.Description,
-                    Due = Context.CardProgresses.Count(progress => progress.DueDate >= DateTime.Today),
+                    Due = Context.CardProgresses
+                        .Include(progress => progress.Card)
+                        .Count(progress => progress.Card.CourseId == course.Id && progress.DueDate >= DateTime.Today),
                 });
         }
 
