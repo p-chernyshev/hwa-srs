@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HwaSrsApi.Models
 {
@@ -10,6 +11,7 @@ namespace HwaSrsApi.Models
         public string Name { get; set; }
 
         public int CardTypeId { get; set; }
+        [JsonIgnore]
         public virtual CardType CardType { get; set; }
     }
 }
