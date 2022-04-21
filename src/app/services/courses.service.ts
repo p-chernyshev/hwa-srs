@@ -8,7 +8,7 @@ import { Course, NewCourse, ListCourse } from '../types/course';
     providedIn: 'root',
 })
 export class CoursesService {
-    private static readonly url = `${environment.apiUrl}/course`;
+    private static readonly url = `${environment.apiUrl}/Course`;
 
     constructor(
         private httpClient: HttpClient,
