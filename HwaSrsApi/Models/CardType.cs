@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HwaSrsApi.Models
 {
@@ -13,6 +14,7 @@ namespace HwaSrsApi.Models
         [Required]
         public string Design { get; set; }
 
+        [JsonIgnore]
         public virtual List<Card> Cards { get; set; } = new List<Card>();
         public virtual List<Field> Fields { get; set; } = new List<Field>();
     }
