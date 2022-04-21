@@ -19,7 +19,7 @@ export class CardTypesService {
         return this.httpClient.get<CardType[]>(CardTypesService.url);
     }
 
-    public saveNewCourse(cardType: NewCardType): Observable<CardType> {
+    public saveNewCardType(cardType: NewCardType): Observable<CardType> {
         return this.httpClient.post<CardType>(CardTypesService.url, cardType);
     }
 }

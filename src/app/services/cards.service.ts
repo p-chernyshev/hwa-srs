@@ -15,11 +15,11 @@ export class CardsService {
     ) {
     }
 
-    public getCardTypes(): Observable<Card[]> {
+    public getCards(): Observable<Card[]> {
         return this.httpClient.get<Card[]>(CardsService.url);
     }
 
-    public saveNewCourse(card: NewCard): Observable<Card> {
+    public saveNewCard(card: NewCard): Observable<Card> {
         return this.httpClient.post<Card>(CardsService.url, card);
     }
 }
