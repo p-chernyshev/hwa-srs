@@ -1,0 +1,50 @@
+<div class="course">
+    <mat-toolbar class="course__header" color="primary">
+        <h1 class="course__title">Учебный курс</h1>
+    </mat-toolbar>
+    <div class="course__content">
+        <div *ngIf="loading$ | async" class="course__loading-indicator">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div
+            *ngIf="!(loading$ | async) && (course$ | async) as course"
+            class="course__info"
+        >
+            <div class="course__main">
+                <h2 class="course__name">
+                    {{course.name}}
+                </h2>
+                <p class="course__description">
+                    {{course.description}}
+                </p>
+            </div>
+            <mat-divider class="course__divider"></mat-divider>
+            <div class="course__statistics">
+                <p class="course__count">
+                    Карточек для повторения: {{course.due}}
+                </p>
+<!--                TODO Add new cards count-->
+                <p class="course__count">
+                    Новых карточек: 0
+                </p>
+            </div>
+            <div class="course__actions">
+                <a
+                    mat-raised-button
+                    routerLink="review"
+                    color="primary"
+                    [disabled]="!course.due"
+                >
+                    Начать повторение
+                </a>
+                <a
+                    mat-raised-button
+                    routerLink="/courses"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                    Вернуться к списку
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,6 +19,10 @@ export class CoursesService {
         return this.httpClient.get<ListCourse[]>(CoursesService.url);
     }
 
+    public getCourse(id: Course['id']): Observable<ListCourse> {
+        return this.httpClient.get<ListCourse>(`${CoursesService.url}/${id}`);
+    }
+
     public saveNewCourse(course: NewCourse): Observable<Course> {
         return this.httpClient.post<Course>(CoursesService.url, course);
     }

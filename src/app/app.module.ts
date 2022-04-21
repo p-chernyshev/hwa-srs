@@ -18,12 +18,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CourseEditDialogComponent } from './components/course-edit-dialog/course-edit-dialog.component';
+import { CourseComponent } from './components/course/course.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         CoursesComponent,
         CourseEditDialogComponent,
+        CourseComponent,
     ],
     imports: [
         BrowserModule,
