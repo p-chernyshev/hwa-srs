@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,6 +20,7 @@ import { AppComponent } from './app.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CourseEditDialogComponent } from './components/course-edit-dialog/course-edit-dialog.component';
 import { CourseComponent } from './components/course/course.component';
+import { CardEditDialogComponent } from './components/card-edit-dialog/card-edit-dialog.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +28,7 @@ import { CourseComponent } from './components/course/course.component';
         CoursesComponent,
         CourseEditDialogComponent,
         CourseComponent,
+        CardEditDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -43,6 +46,7 @@ import { CourseComponent } from './components/course/course.component';
         ReactiveFormsModule,
         MatMenuModule,
         MatToolbarModule,
+        MatSelectModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

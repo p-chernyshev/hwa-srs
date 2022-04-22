@@ -1,5 +1,5 @@
 <div class="course-edit-dialog">
-    <h1 mat-dialog-title>Новый учебный курс</h1>
+    <h1 mat-dialog-title>{{course ? 'Редактировать' : 'Новый'}} учебный курс</h1>
     <form [formGroup]="formGroup" (ngSubmit)="save()">
         <div mat-dialog-content>
             <mat-form-field appearance="fill" class="course-edit-dialog__form-field">

@@ -18,7 +18,7 @@ interface FieldData {
     value: string;
 }
 
-interface NewCard extends Omit<Card, 'id' | 'fields'> { // | 'progress'
+interface NewCard extends Omit<Card, 'id' | 'cardType' | 'fields'> { // | 'progress'
     fields: NewFieldData[];
 }
 

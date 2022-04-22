@@ -51,7 +51,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     public editCourse(course?: Course): void {
         this.dialog.open<CourseEditDialogComponent, Course | undefined, Course | NewCourse>(CourseEditDialogComponent, {
             data: course,
-            width: '300px',
+            width: '400px',
             maxWidth: '100%',
         })
             .afterClosed()

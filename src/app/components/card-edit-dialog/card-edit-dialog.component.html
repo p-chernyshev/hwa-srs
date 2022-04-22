@@ -1,0 +1,54 @@
+<div class="card-edit-dialog">
+    <h1 mat-dialog-title>Новая карточка</h1>
+    <form [formGroup]="formGroup" (ngSubmit)="save()">
+        <div mat-dialog-content>
+            <mat-form-field appearance="fill" class="card-edit-dialog__form-field">
+                <mat-label>Условие активации</mat-label>
+                <textarea matInput formControlName="activationCondition"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="card-edit-dialog__form-field">
+                <mat-label>Теги</mat-label>
+                <textarea matInput formControlName="tags"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="card-edit-dialog__form-field">
+                <mat-label>Тип карточки</mat-label>
+                <mat-select
+                    formControlName="cardTypeId"
+                    (selectionChange)="selectCardType($event)"
+                >
+                    <mat-option *ngFor="let cardType of cardTypes$ | async" [value]="cardType.id">
+                        {{cardType.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <ng-container *ngIf="cardTypeSelected" formArrayName="fields">
+                <h2>Поля:</h2>
+                <mat-form-field
+                    appearance="fill"
+                    *ngFor="let field of cardTypeSelected.fields; index as i"
+                    class="card-edit-dialog__form-field"
+                >
+                    <mat-label>{{field.name}}</mat-label>
+                    <input matInput [formControlName]="i">
+                </mat-form-field>
+            </ng-container>
+        </div>
+        <div mat-dialog-actions class="card-edit-dialog__actions">
+            <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="(saving$ | async) || (loading$ | async)"
+            >
+                Сохранить
+            </button>
+            <button
+                type="button"
+                mat-raised-button
+                [mat-dialog-close]=""
+            >
+                Отмена
+            </button>
+        </div>
+    </form>
+</div>

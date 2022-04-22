@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, finalize, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
 import { ListCourse, Course } from '../../types/course';
+import { CardEditDialogComponent } from '../card-edit-dialog/card-edit-dialog.component';
 
 @Component({
     selector: 'srs-course',
@@ -20,6 +22,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     constructor(
         private coursesService: CoursesService,
         private route: ActivatedRoute,
+        public dialog: MatDialog,
     ) {
         this.courseId = Number(this.route.snapshot.params['course_id']);
     }
@@ -41,6 +44,18 @@ export class CourseComponent implements OnInit, OnDestroy {
             )
             .subscribe(courses => {
                 this.course$.next(courses);
+            });
+    }
+
+    public addCards(): void {
+        this.dialog.open(CardEditDialogComponent, {
+            data: this.courseId,
+            width: '400px',
+            maxWidth: '100%',
+        })
+            .afterClosed()
+            .subscribe(_ => {
+                this.getCourse();
             });
     }
 }
