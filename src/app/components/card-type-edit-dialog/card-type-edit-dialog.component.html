@@ -1,0 +1,79 @@
+<div class="card-type-edit-dialog">
+    <h1 mat-dialog-title>Новый тип карточек</h1>
+    <form [formGroup]="formGroup" (ngSubmit)="save()">
+        <div mat-dialog-content>
+            <mat-form-field appearance="fill" class="card-type-edit-dialog__form-field">
+                <mat-label>Название</mat-label>
+                <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="card-type-edit-dialog__form-field">
+                <mat-label>Дизайн</mat-label>
+                <textarea matInput formControlName="design"></textarea>
+            </mat-form-field>
+            <mat-checkbox
+                class="card-type-edit-dialog__checkbox"
+                labelPosition="before"
+                formControlName="readOnce"
+            >
+                Читать один раз
+            </mat-checkbox>
+            <ng-container formArrayName="fields">
+                <h2>Поля:</h2>
+                <div
+                    *ngFor="let fieldControl of fieldsFormArray.controls; index as i"
+                    class="card-type-edit-dialog__card-type-field"
+                >
+                    <mat-form-field
+                        appearance="fill"
+                        class="card-type-edit-dialog__form-field"
+                    >
+                        <mat-label>Имя поля</mat-label>
+                        <input matInput [formControlName]="i">
+                    </mat-form-field>
+                    <div class="card-type-edit-dialog__delete-field-wrapper">
+                        <button
+                            class="card-type-edit-dialog__delete-field"
+                            type="button"
+                            mat-icon-button
+                            [disabled]="saving$ | async"
+                            (click)="deleteField(i)"
+                        >
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div mat-dialog-actions class="card-type-edit-dialog__actions">
+            <div class="card-type-edit-dialog__actions-left">
+                <button
+                    type="button"
+                    mat-raised-button
+                    color="accent"
+                    [disabled]="saving$ | async"
+                    (click)="addField()"
+                >
+                    <mat-icon>add</mat-icon>
+                    Поле
+                </button>
+            </div>
+            <div class="card-type-edit-dialog__actions-right">
+                <button
+                    type="submit"
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="saving$ | async"
+                >
+                    Сохранить
+                </button>
+                <button
+                    type="button"
+                    mat-raised-button
+                    [mat-dialog-close]=""
+                >
+                    Отмена
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

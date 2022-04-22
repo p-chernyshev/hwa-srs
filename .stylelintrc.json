@@ -17,6 +17,7 @@
     "no-descending-specificity": [true, {"ignore": ["selectors-within-list"]}],
     "no-duplicate-selectors": true,
     "no-empty-source": null,
+    "number-max-precision": null,
     "selector-pseudo-element-no-unknown": [true, {"ignorePseudoElements": ["/^ng-/"]}],
     "selector-class-pattern": "^([a-z][a-z0-9]*)([-_]+[a-z0-9]+)*$",
     "string-quotes": "double"

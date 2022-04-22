@@ -1,0 +1,25 @@
+.card-type-edit-dialog__form-field {
+    width: 100%;
+}
+
+.card-type-edit-dialog__card-type-field {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-type-edit-dialog__checkbox,
+.card-type-edit-dialog__delete-field-wrapper {
+    // mat-form-field-wrapper padding
+    padding-bottom: 1.34375em;
+}
+
+.card-type-edit-dialog__delete-field {
+    flex: none;
+}
+
+.card-type-edit-dialog__actions {
+    justify-content: space-between;
+}

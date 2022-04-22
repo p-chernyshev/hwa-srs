@@ -2,6 +2,23 @@
     width: 100%;
 }
 
+.card-edit-dialog__card-types {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-edit-dialog__add-card-type-wrapper {
+    // mat-form-field-wrapper padding
+    padding-bottom: 1.34375em;
+}
+
+.card-edit-dialog__add-card-type {
+    flex: none;
+}
+
 .card-edit-dialog__actions {
     justify-content: flex-end;
 }

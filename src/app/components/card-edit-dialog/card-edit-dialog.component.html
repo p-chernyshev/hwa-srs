@@ -10,17 +10,29 @@
                 <mat-label>Теги</mat-label>
                 <textarea matInput formControlName="tags"></textarea>
             </mat-form-field>
-            <mat-form-field appearance="fill" class="card-edit-dialog__form-field">
-                <mat-label>Тип карточки</mat-label>
-                <mat-select
-                    formControlName="cardTypeId"
-                    (selectionChange)="selectCardType($event)"
-                >
-                    <mat-option *ngFor="let cardType of cardTypes$ | async" [value]="cardType.id">
-                        {{cardType.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div class="card-edit-dialog__card-types">
+                <mat-form-field appearance="fill" class="card-edit-dialog__form-field">
+                    <mat-label>Тип карточки</mat-label>
+                    <mat-select
+                        formControlName="cardTypeId"
+                        (selectionChange)="selectCardType($event)"
+                    >
+                        <mat-option *ngFor="let cardType of cardTypes$ | async" [value]="cardType.id">
+                            {{cardType.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="card-edit-dialog__add-card-type-wrapper">
+                    <button
+                        class="card-edit-dialog__add-card-type"
+                        type="button"
+                        mat-icon-button
+                        (click)="addCardType()"
+                    >
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
             <ng-container *ngIf="cardTypeSelected" formArrayName="fields">
                 <h2>Поля:</h2>
                 <mat-form-field

@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
 import { CardTypesService } from '../../services/card-types.service';
 import { CardsService } from '../../services/cards.service';
 import { CardType } from '../../types/card-type';
 import { Course } from '../../types/course';
+import { CardTypeEditDialogComponent } from '../card-type-edit-dialog/card-type-edit-dialog.component';
 
 interface FormGroupValue {
     cardTypeId: CardType['id'];
@@ -35,6 +36,7 @@ export class CardEditDialogComponent implements OnInit, OnDestroy {
         private dialogRef: MatDialogRef<CardEditDialogComponent>,
         private cardTypesService: CardTypesService,
         private cardsService: CardsService,
+        private dialog: MatDialog,
         @Inject(MAT_DIALOG_DATA) public courseId: Course['id'],
     ) {
         this.formGroup = new FormGroup({
@@ -100,7 +102,6 @@ export class CardEditDialogComponent implements OnInit, OnDestroy {
                     cardTypeId: formValue.cardTypeId,
                 });
             });
-
     }
 
     public selectCardType({ value }: { value: FormGroupValue['cardTypeId'] }): void {
@@ -112,5 +113,17 @@ export class CardEditDialogComponent implements OnInit, OnDestroy {
         for (const field of this.cardTypeSelected?.fields || []) {
             fieldsFormArray.push(new FormControl(null, Validators.required));
         }
+    }
+
+    public addCardType(): void {
+        this.dialog.open(CardTypeEditDialogComponent, {
+            data: this.courseId,
+            width: '400px',
+            maxWidth: '100%',
+        })
+            .afterClosed()
+            .subscribe(_ => {
+                this.getCardTypes();
+            });
     }
 }

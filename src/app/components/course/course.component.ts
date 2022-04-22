@@ -22,7 +22,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     constructor(
         private coursesService: CoursesService,
         private route: ActivatedRoute,
-        public dialog: MatDialog,
+        private dialog: MatDialog,
     ) {
         this.courseId = Number(this.route.snapshot.params['course_id']);
     }

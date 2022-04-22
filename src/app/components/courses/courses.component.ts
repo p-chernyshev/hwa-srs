@@ -20,7 +20,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
     constructor(
         private coursesService: CoursesService,
-        public dialog: MatDialog,
+        private dialog: MatDialog,
     ) {
     }
 

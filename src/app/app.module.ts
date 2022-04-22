@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +22,7 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CourseEditDialogComponent } from './components/course-edit-dialog/course-edit-dialog.component';
 import { CourseComponent } from './components/course/course.component';
 import { CardEditDialogComponent } from './components/card-edit-dialog/card-edit-dialog.component';
+import { CardTypeEditDialogComponent } from './components/card-type-edit-dialog/card-type-edit-dialog.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,7 @@ import { CardEditDialogComponent } from './components/card-edit-dialog/card-edit
         CourseEditDialogComponent,
         CourseComponent,
         CardEditDialogComponent,
+        CardTypeEditDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -47,6 +50,7 @@ import { CardEditDialogComponent } from './components/card-edit-dialog/card-edit
         MatMenuModule,
         MatToolbarModule,
         MatSelectModule,
+        MatCheckboxModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
