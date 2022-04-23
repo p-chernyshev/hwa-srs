@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,36 @@ namespace HwaSrsApi.Controllers
                 .Include(card => card.Fields)
                 .Include(card => card.CardType).ThenInclude(cardType => cardType.Fields)
                 .ToListAsync();
+        }
+
+        [HttpGet("Review/{courseId}")]
+        public async Task<ActionResult<CourseReviewViewModel>> GetCourseReview(int courseId)
+        {
+            var course = await Context.Courses
+                .Select(course => new CourseReviewViewModel
+                {
+                    Id = course.Id,
+                    Due = Context.Cards
+                        .Include(card => card.Progress)
+                        .Include(card => card.Fields)
+                        .Include(card => card.CardType).ThenInclude(cardType => cardType.Fields)
+                        .Where(card => card.CourseId == course.Id && card.Progress != null && card.Progress.DueDate >= DateTime.Today && card.Progress.Status == CardStatus.Reviewing)
+                        .ToList(),
+                    New = Context.Cards
+                        .Include(card => card.Progress)
+                        .Include(card => card.Fields)
+                        .Include(card => card.CardType).ThenInclude(cardType => cardType.Fields)
+                        .Where(card => card.CourseId == course.Id && (string.IsNullOrWhiteSpace(card.ActivationCondition) || card.Progress != null && card.Progress.Status == CardStatus.Activated))
+                        .ToList(),
+                })
+                .FirstAsync(course => course.Id == courseId);
+
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return course;
         }
 
         [HttpGet("{id}")]
