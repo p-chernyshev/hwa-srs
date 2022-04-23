@@ -1,10 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
+import { CardProgressService } from '../../services/card-progress.service';
 import { CardsService } from '../../services/cards.service';
 import { Card } from '../../types/card';
+import { NewCardReview } from '../../types/card-review';
 import { Course } from '../../types/course';
 import { shuffle } from '../../utils/array';
+import { Review } from '../../utils/review';
 
 @Component({
     selector: 'srs-review',
@@ -23,6 +26,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
 
     constructor(
         private cardsService: CardsService,
+        private cardProgressService: CardProgressService,
         private route: ActivatedRoute,
     ) {
         this.courseId = Number(this.route.snapshot.params['course_id']);
@@ -69,11 +73,25 @@ export class ReviewComponent implements OnInit, OnDestroy {
         this.answerShown = true;
     }
 
-    public submitReviewAnswer(value: number): void {
-        // TODO Save review progress
-        console.log(value);
+    public submitReviewAnswer(card: Card, value: number): void {
+        const cardReview: NewCardReview = {
+            cardId: card.id,
+            answer: value,
+            dateReviewed: new Date(),
+        };
 
-        this.showNextCard();
+        this.loading$.next(true);
+        this.cardProgressService.updateCardProgress(
+            Review.getUpdatedCardProgress(card, cardReview),
+            cardReview,
+        )
+            .pipe(
+                takeUntil(this.destroy$),
+                finalize(() => this.loading$.next(false)),
+            )
+            .subscribe(_ => {
+                this.showNextCard();
+            });
     }
 
     private showNextCard(): void {

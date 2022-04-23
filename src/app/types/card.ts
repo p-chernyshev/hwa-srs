@@ -1,12 +1,12 @@
+import { CardProgress } from './card-progress';
 import { CardType, Field } from './card-type';
 import { Course } from './course';
 
 interface Card {
     id: number;
-    cardTypeId: CardType['id'];
     cardType: CardType;
     courseId: Course['id'];
-    // progress?: CardProgress;
+    progress?: CardProgress;
     activationCondition?: string;
     tags?: string;
     fields: FieldData[];
@@ -18,7 +18,8 @@ interface FieldData {
     value: string;
 }
 
-interface NewCard extends Omit<Card, 'id' | 'cardType' | 'fields'> { // | 'progress'
+interface NewCard extends Omit<Card, 'id' | 'cardType' | 'fields' | 'progress'> {
+    cardTypeId: CardType['id'];
     fields: NewFieldData[];
 }
 

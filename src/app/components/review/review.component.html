@@ -39,7 +39,7 @@
                         class="answer__submit-read-once"
                         mat-raised-button
                         color="primary"
-                        (click)="submitReviewAnswer(0)"
+                        (click)="submitReviewAnswer(card, 0)"
                     >
                         Дальше
                     </button>
@@ -63,7 +63,7 @@
                             class="answer__submit-answer"
                             mat-raised-button
                             color="primary"
-                            (click)="submitReviewAnswer(slider.value)"
+                            (click)="submitReviewAnswer(card, slider.value)"
                         >
                             Дальше
                         </button>
