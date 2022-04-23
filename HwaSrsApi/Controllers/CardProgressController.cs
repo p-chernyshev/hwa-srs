@@ -39,11 +39,16 @@ namespace HwaSrsApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCardProgress(int id, CardProgress cardProgress)
+        public async Task<ActionResult<CardProgress>> PutCardProgress(int id, CardProgress cardProgress)
         {
             if (id != cardProgress.Id)
             {
                 return BadRequest();
+            }
+
+            if (!CardProgressExists(id))
+            {
+                return await PostCardProgress(cardProgress);
             }
 
             Context.Entry(cardProgress).State = EntityState.Modified;
