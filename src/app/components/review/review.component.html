@@ -1,0 +1,95 @@
+<div class="review">
+    <div class="review__content">
+        <div *ngIf="loading$ | async" class="review__loading-indicator">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="!(loading$ | async) && card" class="review__card-container">
+            <mat-card class="review__card">
+                <div class="review__card-content-wrapper">
+                    <div
+                        class="review__card-content"
+                        [class.review__card-content_read-once]="card.cardType.readOnce"
+                        [class.review__card-content_review]="!card.cardType.readOnce"
+                    >
+                        <ng-container *ngIf="getCardDisplayParts(card) as parts">
+                            <ng-container *ngIf="!card.cardType.readOnce && !answerShown">
+                                <p class="review__card-part">{{parts[0]}}</p>
+                            </ng-container>
+                            <ng-container *ngIf="card.cardType.readOnce || answerShown">
+                                <ng-container *ngFor="let part of parts; last as last">
+                                    <p class="review__card-part">{{part}}</p>
+                                    <mat-divider *ngIf="!last" class="review__divider"></mat-divider>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </mat-card>
+            <div class="review__answer answer">
+                <a
+                    class="answer__back"
+                    type="button"
+                    mat-icon-button
+                    routerLink="/courses"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+                </a>
+                <ng-container *ngIf="card.cardType.readOnce">
+                    <button
+                        class="answer__submit-read-once"
+                        mat-raised-button
+                        color="primary"
+                        (click)="submitReviewAnswer(0)"
+                    >
+                        Дальше
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="!card.cardType.readOnce">
+                    <ng-container *ngIf="answerShown">
+                        <label class="answer__slider-label">
+                            Оцените свой ответ:
+                        </label>
+                        <mat-slider
+                            #slider
+                            class="answer__slider"
+                            [max]="10"
+                            [min]="0"
+                            [step]="1"
+                            [thumbLabel]="true"
+                            [tickInterval]="1"
+                            [value]="5"
+                        ></mat-slider>
+                        <button
+                            class="answer__submit-answer"
+                            mat-raised-button
+                            color="primary"
+                            (click)="submitReviewAnswer(slider.value)"
+                        >
+                            Дальше
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="!answerShown">
+                        <button
+                            class="answer__show-answer"
+                            mat-raised-button
+                            color="accent"
+                            (click)="showAnswer()"
+                        >
+                            Показать ответ
+                        </button>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+        <div *ngIf="!(loading$ | async) && !card" class="review__finished">
+            <h3>На сегодня карточки для повторения закончились</h3>
+            <a
+                mat-raised-button
+                routerLink="/courses"
+            >
+                <mat-icon>arrow_back</mat-icon>
+                Вернуться к списку
+            </a>
+        </div>
+    </div>
+</div>

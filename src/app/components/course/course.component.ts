@@ -42,8 +42,8 @@ export class CourseComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$),
                 finalize(() => this.loading$.next(false)),
             )
-            .subscribe(courses => {
-                this.course$.next(courses);
+            .subscribe(course => {
+                this.course$.next(course);
             });
     }
 

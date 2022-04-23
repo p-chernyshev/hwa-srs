@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { environment } from '../environments/environment';
 import { CourseComponent } from './components/course/course.component';
 import { CoursesComponent } from './components/courses/courses.component';
+import { ReviewComponent } from './components/review/review.component';
 
 const routes: Routes = [
     {
@@ -17,6 +18,10 @@ const routes: Routes = [
     {
         path: 'courses/:course_id',
         component: CourseComponent,
+    },
+    {
+        path: 'courses/:course_id/review',
+        component: ReviewComponent,
     },
     {
         path: '**',
