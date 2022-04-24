@@ -36,7 +36,7 @@ namespace HwaSrsApi.Controllers
                         .Include(card => card.Progress)
                         .Include(card => card.Fields)
                         .Include(card => card.CardType).ThenInclude(cardType => cardType.Fields)
-                        .Where(card => card.CourseId == course.Id && card.Progress == null && (string.IsNullOrWhiteSpace(card.ActivationCondition) || card.Progress != null && card.Progress.Status == CardStatus.Activated))
+                        .Where(card => card.CourseId == course.Id && (card.Progress == null && string.IsNullOrWhiteSpace(card.ActivationCondition) || card.Progress != null && card.Progress.Status == CardStatus.Activated))
                         .ToList(),
                 })
                 .FirstAsync(course => course.Id == courseId);
