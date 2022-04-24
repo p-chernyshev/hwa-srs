@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +16,6 @@ namespace HwaSrsApi.Controllers
         public CardProgressController(SrsContext context)
         {
             Context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CardProgress>>> GetCardProgresses()
-        {
-            return await Context.CardProgresses.ToListAsync();
         }
 
         [HttpGet("{id}")]
@@ -93,21 +86,6 @@ namespace HwaSrsApi.Controllers
             }
 
             return CreatedAtAction("GetCardProgress", new { id = cardProgress.Id }, cardProgress);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<CardProgress>> DeleteCardProgress(int id)
-        {
-            var cardProgress = await Context.CardProgresses.FindAsync(id);
-            if (cardProgress == null)
-            {
-                return NotFound();
-            }
-
-            Context.CardProgresses.Remove(cardProgress);
-            await Context.SaveChangesAsync();
-
-            return cardProgress;
         }
 
         private bool CardProgressExists(int id)

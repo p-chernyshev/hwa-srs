@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -18,15 +17,6 @@ namespace HwaSrsApi.Controllers
         public CardController(SrsContext context)
         {
             Context = context;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Card>>> GetCards()
-        {
-            return await Context.Cards
-                .Include(card => card.Fields)
-                .Include(card => card.CardType).ThenInclude(cardType => cardType.Fields)
-                .ToListAsync();
         }
 
         [HttpGet("Review/{courseId}")]
@@ -75,35 +65,6 @@ namespace HwaSrsApi.Controllers
             return card;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCard(int id, Card card)
-        {
-            if (id != card.Id)
-            {
-                return BadRequest();
-            }
-
-            Context.Entry(card).State = EntityState.Modified;
-
-            try
-            {
-                await Context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CardExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         [HttpPost]
         public async Task<ActionResult<Card>> PostCard(Card card)
         {
@@ -111,26 +72,6 @@ namespace HwaSrsApi.Controllers
             await Context.SaveChangesAsync();
 
             return CreatedAtAction("GetCard", new { id = card.Id }, card);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Card>> DeleteCard(int id)
-        {
-            var card = await Context.Cards.FindAsync(id);
-            if (card == null)
-            {
-                return NotFound();
-            }
-
-            Context.Cards.Remove(card);
-            await Context.SaveChangesAsync();
-
-            return card;
-        }
-
-        private bool CardExists(int id)
-        {
-            return Context.Cards.Any(e => e.Id == id);
         }
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -42,35 +41,6 @@ namespace HwaSrsApi.Controllers
             return cardType;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCardType(int id, CardType cardType)
-        {
-            if (id != cardType.Id)
-            {
-                return BadRequest();
-            }
-
-            Context.Entry(cardType).State = EntityState.Modified;
-
-            try
-            {
-                await Context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CardTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         [HttpPost]
         public async Task<ActionResult<CardType>> PostCardType(CardType cardType)
         {
@@ -78,26 +48,6 @@ namespace HwaSrsApi.Controllers
             await Context.SaveChangesAsync();
 
             return CreatedAtAction("GetCardType", new { id = cardType.Id }, cardType);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<CardType>> DeleteCardType(int id)
-        {
-            var cardType = await Context.CardTypes.FindAsync(id);
-            if (cardType == null)
-            {
-                return NotFound();
-            }
-
-            Context.CardTypes.Remove(cardType);
-            await Context.SaveChangesAsync();
-
-            return cardType;
-        }
-
-        private bool CardTypeExists(int id)
-        {
-            return Context.CardTypes.Any(e => e.Id == id);
         }
     }
 }
