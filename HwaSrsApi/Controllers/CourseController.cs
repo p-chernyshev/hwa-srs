@@ -102,7 +102,7 @@ namespace HwaSrsApi.Controllers
                     Description = course.Description,
                     Due = Context.Cards
                         .Include(card => card.Progress)
-                        .Count(card => card.CourseId == course.Id && card.Progress != null && card.Progress.DueDate >= DateTime.Today && card.Progress.Status == CardStatus.Reviewing),
+                        .Count(card => card.CourseId == course.Id && card.Progress != null && card.Progress.Status == CardStatus.Reviewing && card.Progress.DueDate.Value.Date <= DateTime.Today),
                     New = Context.Cards
                         .Include(card => card.Progress)
                         .Count(card => card.CourseId == course.Id && card.Progress == null && (string.IsNullOrWhiteSpace(card.ActivationCondition) || card.Progress != null && card.Progress.Status == CardStatus.Activated)),

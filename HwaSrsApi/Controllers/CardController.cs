@@ -30,7 +30,7 @@ namespace HwaSrsApi.Controllers
                         .Include(card => card.Progress)
                         .Include(card => card.Fields)
                         .Include(card => card.CardType).ThenInclude(cardType => cardType.Fields)
-                        .Where(card => card.CourseId == course.Id && card.Progress != null && card.Progress.DueDate >= DateTime.Today && card.Progress.Status == CardStatus.Reviewing)
+                        .Where(card => card.CourseId == course.Id && card.Progress != null && card.Progress.Status == CardStatus.Reviewing && card.Progress.DueDate.Value.Date <= DateTime.Today)
                         .ToList(),
                     New = Context.Cards
                         .Include(card => card.Progress)
