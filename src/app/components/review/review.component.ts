@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
 import { CardProgressService } from '../../services/card-progress.service';
@@ -28,6 +29,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
         private cardsService: CardsService,
         private cardProgressService: CardProgressService,
         private route: ActivatedRoute,
+        private domSanitizer: DomSanitizer,
     ) {
         this.courseId = Number(this.route.snapshot.params['course_id']);
     }
@@ -57,7 +59,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
             });
     }
 
-    public getCardDisplayParts(card: Card): string[] {
+    public getCardDisplayParts(card: Card): SafeHtml[] {
         const cardTypeDesignParts = card.cardType.design.split(/^---*$/m);
         return cardTypeDesignParts.map(displayPart => {
             for (const cardTypeField of card.cardType.fields) {
@@ -65,7 +67,7 @@ export class ReviewComponent implements OnInit, OnDestroy {
                 const fieldNameRegExp = new RegExp(`\\{\\{${cardTypeField.name}\\}\\}`, 'g');
                 displayPart = displayPart.replace(fieldNameRegExp, cardFieldData?.value || '');
             }
-            return displayPart;
+            return this.domSanitizer.bypassSecurityTrustHtml(displayPart);
         });
     }
 

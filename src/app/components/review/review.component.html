@@ -13,11 +13,11 @@
                     >
                         <ng-container *ngIf="getCardDisplayParts(card) as parts">
                             <ng-container *ngIf="!card.cardType.readOnce && !answerShown">
-                                <p class="review__card-part">{{parts[0]}}</p>
+                                <div class="review__card-part" [innerHTML]="parts[0]"></div>
                             </ng-container>
                             <ng-container *ngIf="card.cardType.readOnce || answerShown">
                                 <ng-container *ngFor="let part of parts; last as last">
-                                    <p class="review__card-part">{{part}}</p>
+                                    <div class="review__card-part" [innerHTML]="part"></div>
                                     <mat-divider *ngIf="!last" class="review__divider"></mat-divider>
                                 </ng-container>
                             </ng-container>
