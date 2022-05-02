@@ -2,28 +2,28 @@
     font-family: Roboto;
     font-style: normal;
     font-weight: 300;
-    src: url("./assets/fonts/Roboto-Light.woff") format("woff");
+    src: url("/assets/fonts/Roboto-Light.woff") format("woff");
 }
 
 @font-face {
     font-family: Roboto;
     font-style: normal;
     font-weight: 400;
-    src: url("./assets/fonts/Roboto-Regular.woff") format("woff");
+    src: url("/assets/fonts/Roboto-Regular.woff") format("woff");
 }
 
 @font-face {
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
-    src: url("./assets/fonts/Roboto-Medium.woff") format("woff");
+    src: url("/assets/fonts/Roboto-Medium.woff") format("woff");
 }
 
 @font-face {
     font-family: "Material Icons";
     font-style: normal;
     font-weight: 400;
-    src: url("./assets/icons/MaterialIcons-Regular.ttf") format("truetype");
+    src: url("/assets/icons/MaterialIcons-Regular.ttf") format("truetype");
 }
 
 .material-icons {
