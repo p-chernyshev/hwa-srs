@@ -26,6 +26,14 @@ import { CourseComponent } from './components/course/course.component';
 import { CardEditDialogComponent } from './components/card-edit-dialog/card-edit-dialog.component';
 import { CardTypeEditDialogComponent } from './components/card-type-edit-dialog/card-type-edit-dialog.component';
 import { ReviewComponent } from './components/review/review.component';
+import { CardProgressService } from './services/card-progress.service';
+import { CardTypesService } from './services/card-types.service';
+import { CardsService } from './services/cards.service';
+import { CoursesService } from './services/courses.service';
+import { CardProgressHttpService } from './services/http/card-progress-http.service';
+import { CardTypesHttpService } from './services/http/card-types-http.service';
+import { CardsHttpService } from './services/http/cards-http.service';
+import { CoursesHttpService } from './services/http/courses-http.service';
 
 @NgModule({
     declarations: [
@@ -58,7 +66,24 @@ import { ReviewComponent } from './components/review/review.component';
         MatCardModule,
         MatSliderModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: CardProgressService,
+            useClass: CardProgressHttpService,
+        },
+        {
+            provide: CardTypesService,
+            useClass: CardTypesHttpService,
+        },
+        {
+            provide: CardsService,
+            useClass: CardsHttpService,
+        },
+        {
+            provide: CoursesService,
+            useClass: CoursesHttpService,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule { }

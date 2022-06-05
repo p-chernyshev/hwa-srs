@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, Inject } from '@
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
-import { CardTypesHttpService } from '../../services/http/card-types-http.service';
-import { CardsHttpService } from '../../services/http/cards-http.service';
+import { CardTypesService } from '../../services/card-types.service';
+import { CardsService } from '../../services/cards.service';
 import { CardType } from '../../types/card-type';
 import { Course } from '../../types/course';
 import { CardTypeEditDialogComponent } from '../card-type-edit-dialog/card-type-edit-dialog.component';
@@ -34,8 +34,8 @@ export class CardEditDialogComponent implements OnInit, OnDestroy {
 
     constructor(
         private dialogRef: MatDialogRef<CardEditDialogComponent>,
-        private cardTypesService: CardTypesHttpService,
-        private cardsService: CardsHttpService,
+        private cardTypesService: CardTypesService,
+        private cardsService: CardsService,
         private dialog: MatDialog,
         @Inject(MAT_DIALOG_DATA) public courseId: Course['id'],
     ) {

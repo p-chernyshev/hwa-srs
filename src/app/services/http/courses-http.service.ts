@@ -3,16 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Course, NewCourse, ListCourse } from '../../types/course';
+import { CoursesService } from '../courses.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class CoursesHttpService {
+export class CoursesHttpService extends CoursesService {
     private static readonly url = `${environment.apiUrl}/Course`;
 
     constructor(
         private httpClient: HttpClient,
     ) {
+        super();
     }
 
     public getCourses(): Observable<ListCourse[]> {

@@ -4,6 +4,7 @@ import { Observable, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { CardProgress } from '../../types/card-progress';
 import { NewCardReview } from '../../types/card-review';
+import { CardProgressService } from '../card-progress.service';
 
 interface CardProgressPostBody extends Omit<CardProgress, 'dueDate'> {
     dueDate?: string;
@@ -16,13 +17,14 @@ interface CardReviewPostBody extends Omit<NewCardReview, 'dateReviewed'> {
 @Injectable({
     providedIn: 'root',
 })
-export class CardProgressHttpService {
+export class CardProgressHttpService extends CardProgressService {
     private static readonly urlProgress = `${environment.apiUrl}/CardProgress`;
     private static readonly urlReview = `${environment.apiUrl}/CardReview`;
 
     constructor(
         private httpClient: HttpClient,
     ) {
+        super();
     }
 
     public updateCardProgress(cardProgress: CardProgress, cardReview: NewCardReview): Observable<void> {

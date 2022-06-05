@@ -5,16 +5,18 @@ import { environment } from '../../../environments/environment';
 import { Card, NewCard } from '../../types/card';
 import { Course } from '../../types/course';
 import { CourseReview } from '../../types/course-review';
+import { CardsService } from '../cards.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class CardsHttpService {
+export class CardsHttpService extends CardsService {
     private static readonly url = `${environment.apiUrl}/Card`;
 
     constructor(
         private httpClient: HttpClient,
     ) {
+        super();
     }
 
     public getReviewCards(courseId: Course['id']): Observable<CourseReview> {

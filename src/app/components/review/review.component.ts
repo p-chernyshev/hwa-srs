@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
-import { CardProgressHttpService } from '../../services/http/card-progress-http.service';
-import { CardsHttpService } from '../../services/http/cards-http.service';
+import { CardProgressService } from '../../services/card-progress.service';
+import { CardsService } from '../../services/cards.service';
 import { Card } from '../../types/card';
 import { NewCardReview } from '../../types/card-review';
 import { Course } from '../../types/course';
@@ -26,8 +26,8 @@ export class ReviewComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     constructor(
-        private cardsService: CardsHttpService,
-        private cardProgressService: CardProgressHttpService,
+        private cardsService: CardsService,
+        private cardProgressService: CardProgressService,
         private route: ActivatedRoute,
         private domSanitizer: DomSanitizer,
     ) {
