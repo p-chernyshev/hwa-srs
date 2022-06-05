@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject, takeUntil, finalize, Subject } from 'rxjs';
-import { CardTypesService } from '../../services/card-types.service';
+import { CardTypesHttpService } from '../../services/http/card-types-http.service';
 import { NewCardType } from '../../types/card-type';
 
 interface FormGroupValue {
@@ -32,7 +32,7 @@ export class CardTypeEditDialogComponent implements OnInit, OnDestroy {
 
     constructor(
         private dialogRef: MatDialogRef<CardTypeEditDialogComponent>,
-        private cardTypesService: CardTypesService,
+        private cardTypesService: CardTypesHttpService,
     ) {
     }
 

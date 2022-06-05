@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
-import { environment } from '../../environments/environment';
-import { CardProgress } from '../types/card-progress';
-import { NewCardReview } from '../types/card-review';
+import { environment } from '../../../environments/environment';
+import { CardProgress } from '../../types/card-progress';
+import { NewCardReview } from '../../types/card-review';
 
 interface CardProgressPostBody extends Omit<CardProgress, 'dueDate'> {
     dueDate?: string;
@@ -16,7 +16,7 @@ interface CardReviewPostBody extends Omit<NewCardReview, 'dateReviewed'> {
 @Injectable({
     providedIn: 'root',
 })
-export class CardProgressService {
+export class CardProgressHttpService {
     private static readonly urlProgress = `${environment.apiUrl}/CardProgress`;
     private static readonly urlReview = `${environment.apiUrl}/CardReview`;
 
@@ -30,7 +30,7 @@ export class CardProgressService {
             ...cardProgress,
             dueDate: cardProgress.dueDate?.toJSON(),
         };
-        return this.httpClient.put<void>(`${CardProgressService.urlProgress}/${cardReview.cardId}`, body).pipe(
+        return this.httpClient.put<void>(`${CardProgressHttpService.urlProgress}/${cardReview.cardId}`, body).pipe(
             switchMap(_ => this.saveNewCardReview(cardReview)),
         );
     }
@@ -40,6 +40,6 @@ export class CardProgressService {
             ...cardReview,
             dateReviewed: cardReview.dateReviewed.toJSON(),
         };
-        return this.httpClient.post<void>(CardProgressService.urlReview, body);
+        return this.httpClient.post<void>(CardProgressHttpService.urlReview, body);
     }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, finalize, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesHttpService } from '../../services/http/courses-http.service';
 import { ListCourse, Course } from '../../types/course';
 import { CardEditDialogComponent } from '../card-edit-dialog/card-edit-dialog.component';
 
@@ -20,7 +20,7 @@ export class CourseComponent implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
 
     constructor(
-        private coursesService: CoursesService,
+        private coursesService: CoursesHttpService,
         private route: ActivatedRoute,
         private dialog: MatDialog,
     ) {
