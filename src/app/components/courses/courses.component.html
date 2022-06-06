@@ -6,8 +6,8 @@
         <div *ngIf="loading$ | async" class="courses__loading-indicator">
             <mat-spinner></mat-spinner>
         </div>
-        <div *ngIf="!(loading$ | async) && (courses$ | async) as courses" class="courses__list-container">
-            <mat-nav-list class="courses__list">
+        <div *ngIf="!(loading$ | async)" class="courses__list-container">
+            <mat-nav-list class="courses__list" *ngIf="(courses$ | async) as courses">
                 <mat-list-item
                     *ngFor="let course of courses; last as last"
                     class="courses__list-item"
