@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, switchMap, tap, map, forkJoin } from 'rxjs';
+import { Observable, switchMap, tap, map, forkJoin, defaultIfEmpty } from 'rxjs';
 import { NewCard, Card, FieldData } from '../../types/card';
 import { CardStatus } from '../../types/card-progress';
 import { Course } from '../../types/course';
@@ -22,6 +22,7 @@ export class CardsLocalService extends CardsService {
             switchMap(cards => forkJoin(cards.map(card => SrsDatabase.getValue('card_progresses', card.id).pipe(
                 map(progress => ({ ...card, progress })),
             )))),
+            defaultIfEmpty([]),
             map(cards => ({
                 id: courseId,
                 due: cards.filter(card =>

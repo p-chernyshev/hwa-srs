@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map, forkJoin, switchMap } from 'rxjs';
+import { Observable, map, forkJoin, switchMap, defaultIfEmpty } from 'rxjs';
 import { NewCourse, ListCourse, Course } from '../../types/course';
 import { CoursesService } from '../courses.service';
 import { CardsLocalService } from './cards-local.service';
@@ -31,6 +31,7 @@ export class CoursesLocalService extends CoursesService {
     public getCourses(): Observable<ListCourse[]> {
         return SrsDatabase.getValues('courses').pipe(
             switchMap(courses => forkJoin(courses.map(course => this.getListCourse(course)))),
+            defaultIfEmpty([]),
         );
     }
 
