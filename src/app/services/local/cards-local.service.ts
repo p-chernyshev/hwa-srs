@@ -12,9 +12,7 @@ import { SrsDatabase } from './srs-database';
 })
 export class CardsLocalService extends CardsService {
     private static roundDownDays(date: Date): Date {
-        const newDate = new Date(date);
-        newDate.setHours(0, 0, 0, 0);
-        return newDate;
+        return new Date(date.setHours(0, 0, 0, 0));
     }
 
     constructor(
