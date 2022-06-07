@@ -12,7 +12,7 @@ export class SrsDatabase {
         storeName: StoreName,
         value: StoreValue<SrsDbSchema, StoreName> | Omit<StoreValue<SrsDbSchema, StoreName>, 'id'>,
         key?: StoreKey<SrsDbSchema, StoreName>,
-    ): Observable<StoreValue<SrsDbSchema, StoreName>> {
+    ): Observable<StoreKey<SrsDbSchema, StoreName>> {
         return from(this.setValueAsync(storeName, value, key));
     }
 
@@ -69,13 +69,12 @@ export class SrsDatabase {
         storeName: StoreName,
         value: StoreValue<SrsDbSchema, StoreName> | Omit<StoreValue<SrsDbSchema, StoreName>, 'id'>,
         key?: StoreKey<SrsDbSchema, StoreName>,
-    ): Promise<StoreValue<SrsDbSchema, StoreName>> {
+    ): Promise<StoreKey<SrsDbSchema, StoreName>> {
         const db = await SrsDatabase.openDb();
         const transaction = db.transaction(storeName, 'readwrite');
         const store = transaction.objectStore(storeName);
         const savedValue = value as StoreValue<SrsDbSchema, StoreName>;
-        await store.put(savedValue, key);
-        return savedValue;
+        return store.put(savedValue, key);
     }
 
     private static async deleteValueAsync<StoreName extends StoreNames<SrsDbSchema>>(

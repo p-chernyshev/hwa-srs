@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, switchMap, tap, map, forkJoin, defaultIfEmpty } from 'rxjs';
+import { Observable, switchMap, tap, map, forkJoin, defaultIfEmpty, mapTo } from 'rxjs';
 import { NewCard, Card, FieldData } from '../../types/card';
 import { CardStatus } from '../../types/card-progress';
 import { Course } from '../../types/course';
@@ -30,7 +30,7 @@ export class CardsLocalService extends CardsService {
                     && card.progress.status === CardStatus.Reviewing
                     && card.progress.dueDate
                     && card.progress.dueDate <= new Date(),
-                ), // TODO Full day
+                ),
                 new: cards.filter(card =>
                     !card.progress && !card.activationCondition
                     || card.progress && card.progress.status === CardStatus.Activated,
@@ -48,9 +48,14 @@ export class CardsLocalService extends CardsService {
                     cardType,
                     fields: newCard.fields as FieldData[],
                 };
-                return SrsDatabase.setValue('cards', card);
+                return SrsDatabase.setValue('cards', card).pipe(
+                    map(id => ({ ...card, id })),
+                );
             }),
             tap(card => card.fields.forEach(field => field.cardId = card.id)),
+            switchMap(card => SrsDatabase.setValue('cards', card).pipe(
+                mapTo(card),
+            )),
         );
     }
 }

@@ -46,10 +46,14 @@ export class CoursesLocalService extends CoursesService {
     }
 
     public saveEditCourse(course: Course): Observable<Course> {
-        return SrsDatabase.setValue('courses', course);
+        return SrsDatabase.setValue('courses', course).pipe(
+            map(id => ({ ...course, id })),
+        );
     }
 
     public saveNewCourse(course: NewCourse): Observable<Course> {
-        return SrsDatabase.setValue('courses', course);
+        return SrsDatabase.setValue('courses', course).pipe(
+            map(id => ({ ...course, id })),
+        );
     }
 }
