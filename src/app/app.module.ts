@@ -17,6 +17,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +35,10 @@ import { CardProgressHttpService } from './services/http/card-progress-http.serv
 import { CardTypesHttpService } from './services/http/card-types-http.service';
 import { CardsHttpService } from './services/http/cards-http.service';
 import { CoursesHttpService } from './services/http/courses-http.service';
+import { CardProgressLocalService } from './services/local/card-progress-local.service';
+import { CardTypesLocalService } from './services/local/card-types-local.service';
+import { CardsLocalService } from './services/local/cards-local.service';
+import { CoursesLocalService } from './services/local/courses-local.service';
 
 @NgModule({
     declarations: [
@@ -69,19 +74,27 @@ import { CoursesHttpService } from './services/http/courses-http.service';
     providers: [
         {
             provide: CardProgressService,
-            useClass: CardProgressHttpService,
+            useClass: environment.browser
+                ? CardProgressHttpService
+                : CardProgressLocalService,
         },
         {
             provide: CardTypesService,
-            useClass: CardTypesHttpService,
+            useClass: environment.browser
+                ? CardTypesHttpService
+                : CardTypesLocalService,
         },
         {
             provide: CardsService,
-            useClass: CardsHttpService,
+            useClass: environment.browser
+                ? CardsHttpService
+                : CardsLocalService,
         },
         {
             provide: CoursesService,
-            useClass: CoursesHttpService,
+            useClass: environment.browser
+                ? CoursesHttpService
+                : CoursesLocalService,
         },
     ],
     bootstrap: [AppComponent],
