@@ -11,6 +11,12 @@ import { SrsDatabase } from './srs-database';
     providedIn: 'root',
 })
 export class CardsLocalService extends CardsService {
+    private static roundDownDays(date: Date): Date {
+        const newDate = new Date(date);
+        newDate.setHours(0, 0, 0, 0);
+        return newDate;
+    }
+
     constructor(
     ) {
         super();
@@ -29,7 +35,7 @@ export class CardsLocalService extends CardsService {
                     card.progress
                     && card.progress.status === CardStatus.Reviewing
                     && card.progress.dueDate
-                    && card.progress.dueDate <= new Date(),
+                    && CardsLocalService.roundDownDays(card.progress.dueDate) <= new Date(),
                 ),
                 new: cards.filter(card =>
                     !card.progress && !card.activationCondition
