@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, finalize, BehaviorSubject, ReplaySubject, Subject } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
+import { NavigationService } from '../../services/navigation.service';
 import { ListCourse, Course } from '../../types/course';
 import { CardEditDialogComponent } from '../card-edit-dialog/card-edit-dialog.component';
 
@@ -23,8 +24,10 @@ export class CourseComponent implements OnInit, OnDestroy {
         private coursesService: CoursesService,
         private route: ActivatedRoute,
         private dialog: MatDialog,
+        private navigationService: NavigationService,
     ) {
         this.courseId = Number(this.route.snapshot.params['course_id']);
+        navigationService.backRoute = '/courses';
     }
 
     public ngOnInit(): void {

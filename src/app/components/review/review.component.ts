@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
 import { CardProgressService } from '../../services/card-progress.service';
 import { CardsService } from '../../services/cards.service';
+import { NavigationService } from '../../services/navigation.service';
 import { Card } from '../../types/card';
 import { NewCardReview } from '../../types/card-review';
 import { Course } from '../../types/course';
@@ -30,8 +31,10 @@ export class ReviewComponent implements OnInit, OnDestroy {
         private cardProgressService: CardProgressService,
         private route: ActivatedRoute,
         private domSanitizer: DomSanitizer,
+        private navigationService: NavigationService,
     ) {
         this.courseId = Number(this.route.snapshot.params['course_id']);
+        navigationService.backRoute = `/courses/${this.courseId}`;
     }
 
     public ngOnInit(): void {

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { MatDialog } from '@angular/material/dialog';
 import { ReplaySubject, BehaviorSubject, Subject, takeUntil, finalize } from 'rxjs';
 import { CoursesService } from '../../services/courses.service';
+import { NavigationService } from '../../services/navigation.service';
 import { Course, NewCourse, ListCourse, isNewCourse } from '../../types/course';
 import { CourseEditDialogComponent } from '../course-edit-dialog/course-edit-dialog.component';
 
@@ -21,7 +22,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
     constructor(
         private coursesService: CoursesService,
         private dialog: MatDialog,
+        private navigationService: NavigationService,
     ) {
+        navigationService.backRoute = undefined;
     }
 
     public ngOnInit(): void {
