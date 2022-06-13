@@ -4,7 +4,8 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [
-      "cordova"
+      "cordova",
+      "cordova-plugin-insomnia"
     ]
   },
   "files": [
