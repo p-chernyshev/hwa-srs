@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Component({
     selector: 'srs-root',
@@ -7,4 +8,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+    constructor() {
+        if (!environment.browser) {
+            window.plugins.insomnia.keepAwake();
+        }
+    }
 }
