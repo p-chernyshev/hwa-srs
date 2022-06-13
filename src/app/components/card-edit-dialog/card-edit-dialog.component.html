@@ -41,7 +41,7 @@
                     class="card-edit-dialog__form-field"
                 >
                     <mat-label>{{field.name}}</mat-label>
-                    <input matInput [formControlName]="i">
+                    <textarea matInput [formControlName]="i"></textarea>
                 </mat-form-field>
             </ng-container>
         </div>
@@ -59,7 +59,7 @@
                 mat-raised-button
                 [mat-dialog-close]=""
             >
-                Отмена
+                Закрыть
             </button>
         </div>
     </form>
