@@ -17,6 +17,7 @@ export class CardTypesLocalService extends CardTypesService {
         return SrsDatabase.getValues('card_types');
     }
 
+    // Whoa. TODO rework local services
     public saveNewCardType(newCardType: NewCardType): Observable<CardType> {
         let cardType = newCardType as CardType;
         return SrsDatabase.setValue('card_types', cardType).pipe(

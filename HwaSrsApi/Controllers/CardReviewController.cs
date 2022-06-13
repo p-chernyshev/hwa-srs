@@ -44,6 +44,7 @@ namespace HwaSrsApi.Controllers
 
         private async Task CheckActivation()
         {
+            // TODO Учесть при создании, редактировании
             var inactiveCards =
                 (await Context.Cards
                     .Include(card => card.Progress)
